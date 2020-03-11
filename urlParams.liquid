@@ -1,0 +1,15 @@
+{%- capture contentForQuerystring -%}{{content_for_header}}{%- endcapture -%}
+{%- assign url = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+	replace:'\/','/' | 
+	replace:'%20',' ' | 
+	replace:'\u0026','&'
+-%}
+{% assign urlParams = url | split: '?' | last %}
+{% assign urlParamsArr = urlParams | split: '&' %}
+{% comment %}
+
+usage:
+
+{% include 'urlParams' %}
+
+{% endcomment %}

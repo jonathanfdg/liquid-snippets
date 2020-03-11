@@ -1,0 +1,11 @@
+{% for param in urlParamsArr %}
+	{% assign tempParam = param | append: '&&&' | prepend: '&&&' %}
+	{% assign tempParamArr = split(); %}
+{% endfor %}
+{% comment %}
+
+usage:
+
+{% include 'foundItem' with var %}
+
+{% endcomment %}
