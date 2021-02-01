@@ -1,0 +1,11 @@
+<!-- loop over product tags -->
+{% for tag in product.tags %}
+	{% assign htag = tag | handleize %}
+	{% assign key = 'properties/' | append: htag %}<!-- change 'properties' for target blogs name -->
+	<!-- key should now match the target articles handle -->
+	{% assign properties = articles[key] %}
+	{% if properties != blank %}
+		{{ properties.content }}
+		{% break %}
+	{% endif %}
+{% endfor %}
