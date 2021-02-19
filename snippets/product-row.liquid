@@ -1,0 +1,49 @@
+{% assign image_src = block.settings.image | img_url: '500x' %}
+<div class="three-product-display-section content-width">
+  <div class="product-row-container">
+    <div class="product-row-image" style="background: center / cover no-repeat URL('{{ image_src }}');">
+      <div class="product-row-label">{{ block.settings.row_label }}</div>
+    </div>
+    <div class="products-container">
+      
+      {% assign product_1 = all_products[block.settings.feature_product_1] %}
+      <a href="{{ product_1.url }}" class="product-container hover-event">
+        <div class="overlay"></div>
+        <div class="overlay-text">View Product</div>
+        <img src="{{ product_1 | img_url: 'x300' }}" />
+        <div class="pr-text">
+          <div class="pr-product-title">{{ product_1.title }}</div>
+          <div class="pr-product-description">
+            {{ block.settings.fp_desc_1 }}
+          </div>
+        </div>
+      </a>
+      
+      {% assign product_2 = all_products[block.settings.feature_product_2] %}
+      <a href="{{ product_2.url }}" class="product-container hover-event">
+        <div class="overlay"></div>
+        <div class="overlay-text">View Product</div>
+        <img src="{{ product_2 | img_url: 'x300' }}" />
+        <div class="pr-text">
+          <div class="pr-product-title">{{ product_2.title }}</div>
+          <div class="pr-product-description">
+            {{ block.settings.fp_desc_2 }}
+          </div>
+        </div>
+      </a>
+      
+      {% assign product_3 = all_products[block.settings.feature_product_3] %}
+      <a href="{{ product_3.url }}" class="product-container hover-event">
+        <div class="overlay"></div>
+        <div class="overlay-text">View Product</div>
+        <img src="{{ product_3 | img_url: 'x300' }}" />
+        <div class="pr-text">
+          <div class="pr-product-title">{{ product_3.title }}</div>
+          <div class="pr-product-description">
+            {{ block.settings.fp_desc_3 }}
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

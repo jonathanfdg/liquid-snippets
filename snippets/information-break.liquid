@@ -1,0 +1,12 @@
+<div class="three-product-display-section content-width">
+  <div class="information-break-container">
+    <div class="info-text">
+      <h1 class="info-text-title">{{ block.settings.title }}</h1>
+      <div class="info-text-content">
+        	{{ block.settings.content }}
+      </div>
+    </div>
+    {% assign image_src = block.settings.image | img_url: '500x' %}
+    <img class="info-image" src="{{ image_src }}" />
+  </div>
+</div>

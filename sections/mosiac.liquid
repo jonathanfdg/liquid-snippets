@@ -1,0 +1,144 @@
+<section class="Section" data-section-id="{{section.id}}" data-section-type="mosiac" data-settings='{{section_settings}}'>
+  <div class="content-width">
+    
+    {% assign grid_styles  = "display:grid;grid-template-columns:repeat(" | append: section.settings.cols | append: ", 1fr);grid-template-rows:repeat(" | append: section.settings.rows | append: ", 1fr);" %}
+    {% assign margin_offset = 0 | minus: section.settings.spacing %}
+    {% assign other_styles = "height:" | append: section.settings.height | append: "px;margin:" | append: margin_offset | append: "px;" %}
+    {% assign mosiac_grid_styles = grid_styles | append: other_styles %}
+    
+    <div class="mosiac-grid" style="{{mosiac_grid_styles}}">
+      {% assign row_index = 1 %}
+      {% assign col_index = 1 %}
+      {%- for block in section.blocks -%}
+      
+        {% assign grid_column  = "grid-column: span " | append: block.settings.col_span | append: ";" %}
+        {% assign grid_row = "grid-row: span " | append: block.settings.row_span | append: ";" %}
+        {% assign grid_area = grid_column | append: grid_row %}
+      
+        {% assign image_src = block.settings.image | img_url: '500x' %}
+      	{% assign image_styles = "background: center / cover no-repeat URL('" | append: image_src | append: "');" %}
+      
+        {% assign other_styles = "margin: " | append: section.settings.spacing | append: "px;position:relative;" %}
+      
+      	{% assign styles = grid_area | append: image_styles | append: other_styles %}
+      
+        {% if block.settings.link != blank %} 
+        <a href="{{ block.settings.link }}" {{ block.shopify_attributes }} class="image_block" style="{{ styles }}">
+        {% else %}
+        <div {{ block.shopify_attributes }} class="image_block" style="{{ styles }}">
+        {% endif %}
+      	
+          {% if block.settings.caption != blank %}
+          	<div class="image_block_caption">{{ block.settings.caption }}</div>
+          {% endif %}
+        {% if block.settings.link != blank %}
+        </a>
+        {% else %}
+        </div>
+        {% endif %}
+        {% assign row_index = row_index | plus: 1 %}
+        {% assign col_index = col_index | plus: block.settings.col_span %}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Mosiac",
+    "settings": [
+      {
+          "type": "range",
+          "id": "rows",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "label": "Rows",
+          "default": 3
+      },
+      {
+          "type": "range",
+          "id": "cols",
+          "min": 3,
+          "max": 6,
+          "step": 1,
+          "label": "Columns",
+          "default": 5
+      },
+	  {
+          "type": "range",
+          "id": "height",
+          "min": 50,
+          "max": 2000,
+          "step": 50,
+          "label": "Height",
+          "default": 500
+      },
+      {
+          "type": "range",
+          "id": "spacing",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "label": "Spacing",
+          "default": 10
+      }
+	],
+    "blocks": [
+        {
+          "type": "Image",
+          "name": "Image",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+			{
+			  "type": "range",
+			  "id": "row_span",
+			  "label": "Row Span",
+			  "min": 1,
+              "max": 4,
+			  "default": 1
+			},
+			{
+			  "type": "range",
+			  "id": "col_span",
+ 			  "label": "Col Span",
+		      "min": 1,
+              "max": 6,
+			  "default": 1
+			},
+			{
+			  "type": "text",
+ 			  "id": "caption",
+			  "label": "Caption"
+			},
+			{
+			  "type": "text",
+			  "id": "link",
+			  "label": "Link",
+			  "info": "Put the url for the images link here"
+			}
+          ]
+        }
+     ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+.image_block_caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(12,12,12,0.6);
+    color: #fff;
+    font-size: 20px;
+    padding: 4px;
+}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
